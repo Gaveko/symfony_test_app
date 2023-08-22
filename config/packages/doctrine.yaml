@@ -8,6 +8,9 @@ doctrine:
 
         profiling_collect_backtrace: '%kernel.debug%'
     orm:
+        dql:
+            string_functions:
+                MATCH_AGAINST: App\Extensions\Doctrine\MatchAgainst
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
         report_fields_where_declared: true

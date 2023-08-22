@@ -28,7 +28,7 @@ class ApiToken
     {
         $this->token = bin2hex(random_bytes(60));
         $this->user = $user;
-        $this->expiresAt = new \Datetime('+1 hour');
+        $this->expiresAt = new \Datetime('+24 hour');
     }
 
     public function getId(): ?int
@@ -70,5 +70,13 @@ class ApiToken
         $this->user = $user;
 
         return $this;
+    }
+
+    public function isValid(): bool
+    {
+        if ($this->expiresAt->diff(new \DateTime('now'))->days >= 1) {
+            return false;
+        }
+        return true;
     }
 }

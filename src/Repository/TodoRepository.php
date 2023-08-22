@@ -21,6 +21,17 @@ class TodoRepository extends ServiceEntityRepository
         parent::__construct($registry, Todo::class);
     }
 
+    public function searchByTitle($query)
+    {
+        $a = $this->createQueryBuilder('t')
+            ->where('MATCH_AGAINST(t.title) AGAINST(:query) > 0')
+            ->setParameter('query', $query)
+            ->getQuery()
+            ->getResult()
+        ;
+        return $a;
+    }
+
 //    /**
 //     * @return Todo[] Returns an array of Todo objects
 //     */
